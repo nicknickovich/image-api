@@ -19,12 +19,11 @@ api_restful = Api()
 def create_app(config_file):
     app = Flask(__name__, instance_relative_config=True)
     with app.app_context():
-        app.config.from_object("config")
         app.config.from_pyfile(config_file)
 
         db.init_app(app)
 
-        from department_app.api.views import api
+        from image_app.api.views import api
 
         app.register_blueprint(api)
 

@@ -8,12 +8,12 @@
     and query database.
 """
 
-from department_app import db
+from image_app import db
 
 
 class Image(db.Model):
     """Model for an image."""
     id = db.Column(db.Integer, primary_key=True)
-    image = db.Column(db.LargeBinary, nullable=False)
+    image_file = db.Column(db.LargeBinary, nullable=False)
     date_uploaded = db.Column(db.DateTime, nullable=False)
-    image_type = db.Column(db.String(20), nullable=False)
+    filename = db.Column(db.String(10), nullable=False)

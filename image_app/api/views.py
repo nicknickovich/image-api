@@ -5,7 +5,7 @@
 
     REST API for images.
 """
-
+from datetime import datetime
 from flask import Blueprint, request
 from flask_restful import Resource
 from image_app.models import Image
@@ -13,7 +13,7 @@ from image_app import db, api_restful
 from image_app.api.schema import image_schema, images_schema
 
 
-api_v2 = Blueprint("api", __name__)
+api = Blueprint("api", __name__)
 
 
 class ImageApi(Resource):
@@ -32,14 +32,16 @@ class ImageApi(Resource):
     def post(self):
         """Create a new image."""
         # Get image's attributes from json.
-        image = request.json["image"]
-        date_uploaded = request.json["date_uploaded"]
-        image_type = request.json["image_type"]
+        image_file = bytes(request.json["image_file"], "ascii")
+        date_uploaded = datetime.strptime(
+            request.json["date_uploaded"], "%Y-%m-%dT%H:%M:%S.%f"
+        )
+        filename = request.json["filename"]
         # Create a new image with provided attributes.
         new_image = Image(
-            image=image,
+            image_file=image_file,
             date_uploaded=date_uploaded,
-            image_type=image_type,
+            filename=filename,
         )
         db.session.add(new_image)
         db.session.commit()
@@ -50,13 +52,11 @@ class ImageApi(Resource):
         """Update an image with a given id."""
         image = Image.query.get_or_404(image_id)
         # Get attributes for an image from json.
-        image = request.json["image"]
-        date_uploaded = request.json["date_uploaded"]
-        image_type = request.json["image_type"]
+        image_file = bytes(request.json["image_file"], "ascii")
+        filename = request.json["filename"]
         # Set new values for attributes.
-        image.image = image
-        image.date_uploaded = date_uploaded
-        image.image_type = image_type
+        image.image_file = image_file
+        image.filename = filename
 
         db.session.commit()
 
