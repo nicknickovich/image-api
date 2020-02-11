@@ -33,9 +33,7 @@ class ImageApi(Resource):
         """Create a new image."""
         # Get image's attributes from json.
         image_file = bytes(request.json["image_file"], "ascii")
-        date_uploaded = datetime.strptime(
-            request.json["date_uploaded"], "%Y-%m-%dT%H:%M:%S.%f"
-        )
+        date_uploaded = datetime.now()
         filename = request.json["filename"]
         # Create a new image with provided attributes.
         new_image = Image(
