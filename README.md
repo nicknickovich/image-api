@@ -4,11 +4,11 @@ Basic api for images. For the sake of the exercise it is assumed that images wil
 
 
 ## API routes:
-GET /api/images - retrieve all images;
-GET /api/images/<image_id> - retrieve an image with a given id;
-POST /api/images - add new image;
-PUT /api/images/<image_id> - update an image with a given id;
-DELETE /api/images/<image_id> - delete an image with a given id;
+- GET /api/images - retrieve all images;
+- GET /api/images/<image_id> - retrieve an image with a given id;
+- POST /api/images - add new image;
+- PUT /api/images/<image_id> - update an image with a given id;
+- DELETE /api/images/<image_id> - delete an image with a given id;
 
 
 ## Fields:
